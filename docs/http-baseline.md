@@ -83,3 +83,18 @@ The response did not reflect the supplied origin. This is consistent with a fixe
 
 ### Limitation 
 The curl does not enforce browser CORS rules and does not establish whether sensitive data is accessible cross-origin. Further browser-base testing is needed.
+
+## Socket.IO handshake
+The polling response returned an Engine.IO open packet
+
+Fields observed:
+- `sid`: connection session identifier
+- `upgrades`: Websocket upgrade advertised
+- `pingInterval`: 25,000 ms
+- `pingTimeout`: 20,000 ms
+- `maxPayload`: 10,00,000 bytes
+
+This proves that the application supports real time communication using Socket.IO/Engine.IO
+
+The session identifier is transient and not included in the repo's notes. No vulnerability has been established from this particular handshake alone.
+
