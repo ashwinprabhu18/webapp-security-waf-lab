@@ -112,3 +112,16 @@ The request contained a session identifier, which is included from the public no
 
 This confirms that the WebSocket transport is available. It does not establish whether origin validation or authentication or message authorization can be bypassed or not.
 
+## WebSocket messages
+
+Firefox Developer tools captured messages on the Socket.IO WebSocket connection.
+
+The messages included:
+- `2`: Engine.IO ping
+- `3`: Engine.IO pong
+- `2probe` and `3probe`: messages used during the WebSocket transport upgrade probe
+
+The payloads contained only these protocols and their values in the messages I inspected. No application level data was observed in those messages.
+
+Therefore this is a normal connection management traffic and is not a security finding by itself.
+
