@@ -98,3 +98,17 @@ This proves that the application supports real time communication using Socket.I
 
 The session identifier is transient and not included in the repo's notes. No vulnerability has been established from this particular handshake alone.
 
+## WebSocket upgrade
+
+The web browser established a WebSocket connection to the Socket.IO endpoint
+
+- Transport: WebSocket
+- Endpoint: `/socket.io/`
+- Engine.IO protocol: 4
+- Status: `101 Switching protocols`
+The server accepted teh upgrade from HTTP to WebSocket
+
+The request contained a session identifier, which is included from the public notes and screenshots.
+
+This confirms that the WebSocket transport is available. It does not establish whether origin validation or authentication or message authorization can be bypassed or not.
+
