@@ -45,3 +45,41 @@ drawing any conclusions.
 - Compare its normal response with its response when an Origin header
   is supplied.
 - Record anything interesting and investigate it further.
+
+## Socket.IO polling request
+
+While inspecting the browser's Network tab, I found a GET request to `/socket.io/` using Engine.IO protocol version 4 and polling transport.
+
+The response returned HTTP 200 OK.
+
+Headers observed:
+- Access-Control-Allow-Origin: http://localhost:4200
+- Cache-Control: no-store
+- Vary: Origin
+- Content-Type: text/plain; charset=UTF-8
+
+This appears to be part of the application's real-time communication. The explicit CORS origin differs from the wildcard observed on teh root page response.
+
+## Socket.IO CORS Comparison
+Endpoint: `socket.io/?EIO=4&transport=polling&t=knljesk9`
+Method: GET
+
+### TEST 1: Broswer request
+- Status: 200 Ok
+- Access-Control-Allow-Origin: http://localhost:4200
+- Vary: Origin
+- Cache-Control: no-store
+  
+### TEST 2: Supplied origin
+Sent a request with: `Origin: https://example.invalid`
+
+Result: 
+- Status: 200 Ok
+- Access-Control-Allow_origin remained `http://localhost:4200`
+
+### Observation
+
+The response did not reflect the supplied origin. This is consistent with a fixed allowed-origin configuration.
+
+### Limitation 
+The curl does not enforce browser CORS rules and does not establish whether sensitive data is accessible cross-origin. Further browser-base testing is needed.
