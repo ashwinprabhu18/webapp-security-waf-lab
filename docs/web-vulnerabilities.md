@@ -65,3 +65,15 @@ I sent a login request with a single quote in the email field and an invalid pas
 **Result:** Database error disclosure confirmed. SQL injection is suspected but needs further validation.
 
 **Possible fix:** Use parameterised queries and return a generic error instead of exposing database errors and stack traces.
+
+### Missing Content Security Policy (CSP)
+
+**Endpoint:** `GET /`
+
+I checked the homepage response headers using `curl` and couldn't find a `Content-Security-Policy` header. ZAP also flagged this issue with high confidence.
+
+Without a CSP, the browser doesn't have this additional policy to restrict which sources certain types of content can load from. This can make some attacks, such as XSS, harder to contain.
+
+**Result:** Missing CSP header confirmed on the homepage response. This doesn't automatically mean the application is vulnerable to XSS.
+
+**Possible fix:** Configure a CSP that fits the application's requirements and test it to make sure normal functionality still works.
